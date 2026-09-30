@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Web Resmi - SMK Avicena Rajeg</title>
+  
+  <!-- CSS Dependencies -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy-deep: #0f172a;
+      --navy-soft: #1e293b;
+      --royal-blue: #2563eb;
+      --emerald-green: #10b981;
+      --danger-red: #ef4444;
+      --gold: #d97706;
+      --glass-bg: rgba(30, 41, 59, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.125);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 80px;
+    }
+
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .glass-input {
+      background: rgba(15, 23, 42, 0.6) !important;
+      border: 1px solid var(--glass-border) !important;
+      color: #f8fafc !important;
+      border-radius: 10px;
+    }
+    .glass-input:focus {
+      border-color: var(--royal-blue) !important;
+      box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.25) !important;
+    }
+
+    .navbar-landing {
+      transition: transform 0.3s ease-in-out;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(20px);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 65px;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 1030;
+    }
+
+    .bottom-nav-item {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.75rem;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .bottom-nav-item i {
+      font-size: 1.25rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .bottom-nav-item.active {
+      color: var(--royal-blue);
+      font-weight: 700;
+    }
+
+    .btn-royal {
+      background: var(--royal-blue);
+      color: white;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-royal:hover {
+      background: #1d4ed8;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .stat-card {
+      padding: 20px;
+      border-left: 4px solid var(--royal-blue);
+    }
+
+    .avatar-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--royal-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    .app-view {
+      display: none;
+    }
+    .app-view.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LANDING PAGE VIEW -->
+  <div id="view-landing" class="app-view active">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-landing border-bottom border-secondary border-opacity-25">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+          <i class="fa-solid fa-graduation-cap text-primary fs-3"></i>
+          <span class="fw-bold">SMK AVICENA RAJEG</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto gap-2 mt-2 mt-lg-0">
+            <li class="nav-item"><a class="nav-link text-light" href="#hero">Beranda</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="#jurusan">Program Keahlian</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="#kontak">Kontak</a></li>
+            <li class="nav-item ms-lg-3">
+              <button class="btn btn-outline-light rounded-pill px-3" onclick="switchView('view-auth-guru')"><i class="fa-solid fa-user-tie me-1"></i> Portal Guru</button>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-royal rounded-pill px-3" onclick="switchView('view-auth-siswa')"><i class="fa-solid fa-user-graduate me-1"></i> Portal Siswa</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section id="hero" class="pt-5 mt-5 text-center container">
+      <div class="row justify-content-center py-5">
+        <div class="col-lg-10">
+          <span class="badge bg-primary bg-opacity-25 text-primary mb-3 px-3 py-2 rounded-pill border border-primary border-opacity-25">AKREDITASI B</span>
+          <h1 class="display-4 fw-extrabold mb-3">Mewujudkan Generasi Terampil, Berkarakter & Siap Kerja</h1>
+          <p class="lead text-secondary mb-4">"Cerdas akademis, hebat praktis, mulia dengan taqwa. Itulah nafas kita sebagai siswa — Keluarga Besar SMK Avicena Rajeg"</p>
+          <div class="d-flex justify-content-center gap-3">
+            <button class="btn btn-royal btn-lg px-4" onclick="switchView('view-auth-siswa')">Masuk Portal Siswa <i class="fa-solid fa-arrow-right ms-2"></i></button>
+            <button class="btn btn-outline-light btn-lg px-4 glass-card" onclick="switchView('view-auth-guru')">Akses Pengajar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="jurusan" class="container py-5">
+      <h2 class="text-center fw-bold mb-4">Program Keahlian & Pembelajaran</h2>
+      <div class="mb-5">
+        <h4 class="text-warning mb-3"><i class="fa-solid fa-star me-2"></i>Program Excellent (+) <small class="fs-6 text-muted">(Jam Pembelajaran: 07.00 - 14.00 WIB)</small></h4>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="glass-card p-4">
+              <i class="fa-solid fa-network-wired fs-1 text-primary mb-3"></i>
+              <h5>TKJ (Teknik Komputer & Jaringan)</h5>
+              <p class="text-secondary small">Spesialisasi jaringan terlanjur, administrasi server, dan sistem keamanan siber.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="glass-card p-4">
+              <i class="fa-solid fa-building-user fs-1 text-success mb-3"></i>
+              <h5>MP (Manajemen Perkantoran)</h5>
+              <p class="text-secondary small">Tata kelola otomatisasi perkantoran digital, administrasi bisnis, dan komunikasi profesional.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="glass-card p-4">
+              <i class="fa-solid fa-palette fs-1 text-danger mb-3"></i>
+              <h5>DKV (Desain Komunikasi Visual)</h5>
+              <p class="text-secondary small">Kreativitas multimedia, desain grafis, fotografi, videografi, dan animasi 2D/3D.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="text-info mb-3"><i class="fa-solid fa-clock me-2"></i>Program Reguler <small class="fs-6 text-muted">(Sesi Pagi: 07.00 - 12.00 | Sesi Siang: 13.00 - 17.00 WIB)</small></h4>
+        <div class="row g-3">
+          <div class="col-md-4"><div class="glass-card p-3"><i class="fa-solid fa-network-wired me-2 text-primary"></i>TKJ - Teknik Komputer & Jaringan</div></div>
+          <div class="col-md-4"><div class="glass-card p-3"><i class="fa-solid fa-building-user me-2 text-success"></i>MP - Manajemen Perkantoran</div></div>
+          <div class="col-md-4"><div class="glass-card p-3"><i class="fa-solid fa-calculator me-2 text-warning"></i>AKL - Akuntansi & Keuangan</div></div>
+          <div class="col-md-4"><div class="glass-card p-3"><i class="fa-solid fa-palette me-2 text-danger"></i>DKV - Desain Komunikasi Visual</div></div>
+          <div class="col-md-4"><div class="glass-card p-3"><i class="fa-solid fa-car me-2 text-info"></i>TKR - Teknik Kendaraan Ringan</div></div>
+          <div class="col-md-4"><div class="glass-card p-3"><i class="fa-solid fa-motorcycle me-2 text-secondary"></i>TBSM - Teknik Sepeda Motor</div></div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="kontak" class="border-top border-secondary border-opacity-25 pt-5 pb-4 mt-5 bg-dark">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-school me-2"></i>SMK AVICENA RAJEG</h5>
+            <p class="text-secondary mb-1"><i class="fa-solid fa-location-dot me-2"></i>Jl. Raya Rajeg, Kukun Sukatani, Sukamanah, Kec. Rajeg, Kab. Tangerang, Banten 15540</p>
+            <p class="text-secondary mb-1"><i class="fa-solid fa-envelope me-2"></i>smkavicena@ymail.com</p>
+            <p class="text-secondary"><i class="fa-solid fa-phone me-2"></i>(021) 91277052</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p class="text-secondary mb-0">&copy; 2026 SMK Avicena Rajeg. All rights reserved.</p>
+            <small class="text-muted">Hosted on GitHub Pages & Apps Script API Engine</small>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- AUTH GURU -->
+  <div id="view-auth-guru" class="app-view container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <button class="btn btn-sm btn-outline-secondary mb-3" onclick="switchView('view-landing')"><i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Beranda</button>
+        <div class="glass-card p-4">
+          <div class="text-center mb-4">
+            <i class="fa-solid fa-user-tie fs-1 text-primary"></i>
+            <h3 class="fw-bold mt-2">Portal Pengajar / Guru</h3>
+            <p class="text-secondary small">Masuk atau daftarkan akun tenaga pendidik Anda</p>
+          </div>
+
+          <ul class="nav nav-pills nav-justified mb-3">
+            <li class="nav-item"><button class="nav-link active" onclick="toggleAuthTab('guru', 'login')">Login</button></li>
+            <li class="nav-item"><button class="nav-link" onclick="toggleAuthTab('guru', 'register')">Registrasi Baru</button></li>
+          </ul>
+
+          <form id="form-login-guru" onsubmit="handleLoginGuru(event)">
+            <div class="mb-3">
+              <label class="form-label">Nama Pengajar / No. WhatsApp</label>
+              <input type="text" class="form-control glass-input" id="login-guru-id" placeholder="Budi Santoso / 0812345678" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control glass-input" id="login-guru-pass" required>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+              <a href="#" class="small text-primary text-decoration-none" onclick="handleLupaPassword('guru')">Lupa Password?</a>
+            </div>
+            <button type="submit" class="btn btn-royal w-100 py-2">Masuk Portal Guru</button>
+          </form>
+
+          <form id="form-reg-guru" class="d-none" onsubmit="handleRegGuru(event)">
+            <div class="mb-2">
+              <label class="form-label small">Nama Lengkap (Tanpa Gelar)</label>
+              <input type="text" class="form-control glass-input" id="reg-guru-nama" required>
+            </div>
+            <div class="mb-2">
+              <label class="form-label small">Gelar Akademik</label>
+              <input type="text" class="form-control glass-input" id="reg-guru-gelar" placeholder="S.Pd, M.Kom" required>
+            </div>
+            <div class="mb-2">
+              <label class="form-label small">No. WhatsApp / HP</label>
+              <input type="number" class="form-control glass-input" id="reg-guru-wa" required>
+            </div>
+            <div class="mb-2">
+              <label class="form-label small d-block">Mata Pelajaran Umum</label>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="mapelUmum" value="Matematika"> <label class="form-check-label small">Matematika</label></div>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="mapelUmum" value="Bahasa Indonesia"> <label class="form-check-label small">B. Indo</label></div>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="mapelUmum" value="Bahasa Inggris"> <label class="form-check-label small">B. Inggris</label></div>
+            </div>
+            <div class="mb-2">
+              <label class="form-label small d-block">Mata Pelajaran Kejuruan</label>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="mapelKejuruan" value="Kejuruan TKJ"> <label class="form-check-label small">TKJ</label></div>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="mapelKejuruan" value="Kejuruan MP"> <label class="form-check-label small">MP</label></div>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="mapelKejuruan" value="Kejuruan DKV"> <label class="form-check-label small">DKV</label></div>
+            </div>
+            <div class="mb-2">
+              <label class="form-label small">Password</label>
+              <input type="password" class="form-control glass-input" id="reg-guru-pass" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small text-warning">Kode Unik Rahasia Guru</label>
+              <input type="password" class="form-control glass-input border-warning" id="reg-guru-kode" placeholder="Kode rahasia" required>
+            </div>
+            <button type="submit" class="btn btn-royal w-100 py-2">Daftar Akun Pengajar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTH SISWA -->
+  <div id="view-auth-siswa" class="app-view container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <button class="btn btn-sm btn-outline-secondary mb-3" onclick="switchView('view-landing')"><i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Beranda</button>
+        <div class="glass-card p-4">
+          <div class="text-center mb-4">
+            <i class="fa-solid fa-user-graduate fs-1 text-success"></i>
+            <h3 class="fw-bold mt-2">Portal Siswa</h3>
+            <p class="text-secondary small">Akses presensi, tugas, dan nilai akademik Anda</p>
+          </div>
+
+          <ul class="nav nav-pills nav-justified mb-3">
+            <li class="nav-item"><button class="nav-link active" onclick="toggleAuthTab('siswa', 'login')">Login</button></li>
+            <li class="nav-item"><button class="nav-link" onclick="toggleAuthTab('siswa', 'register')">Registrasi Siswa</button></li>
+          </ul>
+
+          <form id="form-login-siswa" onsubmit="handleLoginSiswa(event)">
+            <div class="mb-3">
+              <label class="form-label">NISN (10 Digit)</label>
+              <input type="number" class="form-control glass-input" id="login-siswa-nisn" placeholder="10 Digit NISN" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control glass-input" id="login-siswa-pass" required>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+              <a href="#" class="small text-primary text-decoration-none" onclick="handleLupaPassword('siswa')">Lupa Password?</a>
+            </div>
+            <button type="submit" class="btn btn-success w-100 py-2 fw-bold">Masuk Portal Siswa</button>
+          </form>
+
+          <form id="form-reg-siswa" class="d-none" onsubmit="handleRegSiswa(event)">
+            <div class="mb-2">
+              <label class="form-label small">Nama Lengkap Siswa</label>
+              <input type="text" class="form-control glass-input" id="reg-siswa-nama" required>
+            </div>
+            <div class="row g-2 mb-2">
+              <div class="col-6">
+                <label class="form-label small">NISN</label>
+                <input type="number" class="form-control glass-input" id="reg-siswa-nisn" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label small">No. WhatsApp</label>
+                <input type="number" class="form-control glass-input" id="reg-siswa-wa" required>
+              </div>
+            </div>
+            <div class="row g-2 mb-2">
+              <div class="col-6">
+                <label class="form-label small">Tingkat Kelas</label>
+                <select class="form-select glass-input" id="reg-siswa-tingkat" required>
+                  <option value="10">Kelas 10</option>
+                  <option value="11">Kelas 11</option>
+                  <option value="12">Kelas 12</option>
+                </select>
+              </div>
+              <div class="col-6">
+                <label class="form-label small">Jalur Program</label>
+                <select class="form-select glass-input" id="reg-siswa-jalur" onchange="updateJurusanGrid()" required>
+                  <option value="Reguler">Reguler</option>
+                  <option value="Excellent (+)">Excellent (+)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label small d-block">Jurusan</label>
+              <div id="jurusan-radio-container" class="d-flex flex-wrap gap-2"></div>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label small">Rombel / Kelas Ke-</label>
+              <select class="form-select glass-input" id="reg-siswa-rombel" required>
+                <option value="1">Rombel 1</option>
+                <option value="2">Rombel 2</option>
+                <option value="3">Rombel 3</option>
+              </select>
+            </div>
+
+            <div class="row g-2 mb-2">
+              <div class="col-6">
+                <label class="form-label small">Nama Ayah</label>
+                <input type="text" class="form-control glass-input" id="reg-siswa-ayah" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label small">Nama Ibu</label>
+                <input type="text" class="form-control glass-input" id="reg-siswa-ibu" required>
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label small">Password</label>
+              <input type="password" class="form-control glass-input" id="reg-siswa-pass" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small text-warning">Kode Unik Rahasia Siswa</label>
+              <input type="password" class="form-control glass-input border-warning" id="reg-siswa-kode" placeholder="Kode rahasia" required>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 py-2 fw-bold">Daftar Akun Siswa</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD GURU VIEW -->
+  <div id="view-dashboard-guru" class="app-view">
+    <div class="navbar glass-card rounded-0 mb-4 px-3 sticky-top">
+      <div class="container-fluid">
+        <span class="navbar-brand fw-bold text-primary"><i class="fa-solid fa-graduation-cap me-2"></i>PORTAL GURU (PG)</span>
+        <div class="d-flex align-items-center gap-2">
+          <span id="guru-profile-name" class="small fw-semibold">Guru Pengajar</span>
+          <button class="btn btn-sm btn-outline-danger" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+          <button class="btn btn-sm btn-danger" onclick="hapusAkunPermanen('guru')"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="guru-sub-home" class="guru-subview">
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-md-3"><div class="glass-card stat-card"><small class="text-secondary d-block">Total Siswa</small><h3 id="stat-total-siswa" class="fw-bold mb-0">0</h3></div></div>
+          <div class="col-6 col-md-3"><div class="glass-card stat-card border-success"><small class="text-secondary d-block">Total Kelas</small><h3 id="stat-total-kelas" class="fw-bold mb-0">0</h3></div></div>
+          <div class="col-6 col-md-3"><div class="glass-card stat-card border-warning"><small class="text-secondary d-block">Tugas Aktif</small><h3 id="stat-total-tugas" class="fw-bold mb-0">0</h3></div></div>
+          <div class="col-6 col-md-3"><div class="glass-card stat-card border-danger"><small class="text-secondary d-block">Kehadiran Hari Ini</small><h3 id="stat-kehadiran-today" class="fw-bold mb-0">0</h3></div></div>
+        </div>
+
+        <div class="glass-card p-4">
+          <h5 class="fw-bold mb-3"><i class="fa-solid fa-id-card me-2 text-primary"></i>Profil Pengajar</h5>
+          <div class="row" id="guru-detail-profil-container"></div>
+        </div>
+      </div>
+
+      <div id="guru-sub-kelas" class="guru-subview d-none">
+        <h4 class="fw-bold mb-3">Daftar Kelas & Siswa</h4>
+        <div class="row g-3" id="container-daftar-kelas"></div>
+      </div>
+
+      <div id="guru-sub-absensi" class="guru-subview d-none">
+        <h4 class="fw-bold mb-3">Rekap & Input Presensi Siswa</h4>
+        <div class="glass-card p-3 mb-3">
+          <div class="row g-2">
+            <div class="col-md-3"><select class="form-select glass-input" id="filter-absen-kelas" onchange="renderTabelAbsenGuru()"><option value="">-- Pilih Kelas Target --</option></select></div>
+            <div class="col-md-3"><input type="date" class="form-control glass-input" id="filter-absen-tanggal" onchange="renderTabelAbsenGuru()"></div>
+          </div>
+        </div>
+        <div class="glass-card p-3 table-responsive">
+          <table class="table table-dark table-hover align-middle mb-0">
+            <thead><tr><th>NISN</th><th>Nama Siswa</th><th>Kelas</th><th>Status Presensi</th></tr></thead>
+            <tbody id="tbody-absensi-guru"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="guru-sub-tugas" class="guru-subview d-none">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="fw-bold mb-0">Kelola Tugas Siswa</h4>
+          <button class="btn btn-royal btn-sm" onclick="showModalBuatTugas()"><i class="fa-solid fa-plus me-1"></i> Buat Tugas Baru</button>
+        </div>
+        <div class="glass-card p-3 table-responsive">
+          <table class="table table-dark table-hover align-middle mb-0">
+            <thead><tr><th>Target Kelas</th><th>Judul Tugas</th><th>Tenggat Waktu</th><th>Aksi</th></tr></thead>
+            <tbody id="tbody-tugas-guru"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="guru-sub-nilai" class="guru-subview d-none">
+        <h4 class="fw-bold mb-3">Rekapitulasi Nilai Siswa</h4>
+        <div class="glass-card p-3 table-responsive">
+          <table class="table table-dark table-hover align-middle mb-0">
+            <thead><tr><th>NISN</th><th>Nama Siswa</th><th>Kelas</th><th>Jawaban / File</th><th>Nilai (0-100)</th><th>Aksi</th></tr></thead>
+            <tbody id="tbody-nilai-guru"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <a href="#" class="bottom-nav-item active" onclick="switchGuruSub('home', this)"><i class="fa-solid fa-house"></i>Home</a>
+      <a href="#" class="bottom-nav-item" onclick="switchGuruSub('kelas', this)"><i class="fa-solid fa-chalkboard-user"></i>Total Kelas</a>
+      <a href="#" class="bottom-nav-item" onclick="switchGuruSub('absensi', this)"><i class="fa-solid fa-clipboard-user"></i>Absensi</a>
+      <a href="#" class="bottom-nav-item" onclick="switchGuruSub('tugas', this)"><i class="fa-solid fa-book"></i>Tugas</a>
+      <a href="#" class="bottom-nav-item" onclick="switchGuruSub('nilai', this)"><i class="fa-solid fa-award"></i>Nilai</a>
+    </div>
+  </div>
+
+  <!-- DASHBOARD SISWA VIEW -->
+  <div id="view-dashboard-siswa" class="app-view">
+    <div class="navbar glass-card rounded-0 mb-4 px-3 sticky-top">
+      <div class="container-fluid">
+        <span class="navbar-brand fw-bold text-success"><i class="fa-solid fa-school me-2"></i>SISWA AVICENA (SA)</span>
+        <div class="d-flex align-items-center gap-2">
+          <span id="siswa-profile-name" class="small fw-semibold">Siswa</span>
+          <button class="btn btn-sm btn-outline-danger" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+          <button class="btn btn-sm btn-danger" onclick="hapusAkunPermanen('siswa')"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="siswa-sub-home" class="siswa-subview">
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-md-3"><div class="glass-card stat-card border-success"><small class="text-secondary d-block">Presensi Bulan Ini</small><h3 id="stat-siswa-presensi" class="fw-bold mb-0">0</h3></div></div>
+          <div class="col-6 col-md-3"><div class="glass-card stat-card border-warning"><small class="text-secondary d-block">Tugas Pending</small><h3 id="stat-siswa-tugas" class="fw-bold mb-0">0</h3></div></div>
+          <div class="col-6 col-md-3"><div class="glass-card stat-card border-primary"><small class="text-secondary d-block">Rata-Rata Nilai</small><h3 id="stat-siswa-nilai" class="fw-bold mb-0">0</h3></div></div>
+          <div class="col-6 col-md-3"><div class="glass-card stat-card border-info"><small class="text-secondary d-block">Total Guru</small><h3 id="stat-siswa-guru" class="fw-bold mb-0">0</h3></div></div>
+        </div>
+
+        <div class="glass-card p-4 text-center">
+          <h5 class="fw-bold">Status Belajar Aktif</h5>
+          <p class="text-secondary mb-0" id="status-belajar-text">Anda terdaftar secara aktif dalam sistem akademik SMK Avicena Rajeg.</p>
+        </div>
+      </div>
+
+      <div id="siswa-sub-profil" class="siswa-subview d-none">
+        <div class="glass-card p-4">
+          <div class="d-flex align-items-center gap-3 mb-4">
+            <div class="avatar-circle" id="siswa-avatar-initial">A</div>
+            <div>
+              <h4 id="siswa-detail-nama" class="fw-bold mb-0">Nama Siswa</h4>
+              <span id="siswa-detail-nisn" class="badge bg-primary">NISN: -</span>
+              <span id="siswa-detail-badge" class="badge bg-warning text-dark">Jalur</span>
+            </div>
+          </div>
+          <hr class="border-secondary">
+          <div class="row g-3" id="siswa-detail-identitas"></div>
+        </div>
+      </div>
+
+      <div id="siswa-sub-absen" class="siswa-subview d-none">
+        <h4 class="fw-bold mb-3">Kirim Presensi Harian</h4>
+        <div class="glass-card p-4 mb-4">
+          <form onsubmit="handleKirimAbsenSiswa(event)">
+            <div class="mb-3">
+              <label class="form-label">Pilih Guru & Mata Pelajaran</label>
+              <select class="form-select glass-input" id="absen-select-guru" required></select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label d-block">Status Kehadiran</label>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="statusAbsen" value="Hadir" checked> <label class="form-check-label">Hadir</label></div>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="statusAbsen" value="Izin"> <label class="form-check-label">Izin</label></div>
+              <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="statusAbsen" value="Sakit"> <label class="form-check-label">Sakit</label></div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Tanggal Presensi</label>
+              <input type="date" class="form-control glass-input" id="absen-tanggal" required>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Kirim Presensi Sekarang</button>
+          </form>
+        </div>
+
+        <h5 class="fw-bold mb-2">Riwayat Presensi</h5>
+        <div class="glass-card p-3 table-responsive">
+          <table class="table table-dark table-hover align-middle mb-0">
+            <thead><tr><th>Tanggal</th><th>Mata Pelajaran</th><th>Guru</th><th>Status</th></tr></thead>
+            <tbody id="tbody-riwayat-absen-siswa"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="siswa-sub-tugas" class="siswa-subview d-none">
+        <h4 class="fw-bold mb-3">Daftar Tugas Kelas Anda</h4>
+        <div class="row g-3" id="container-tugas-siswa"></div>
+      </div>
+
+      <div id="siswa-sub-nilai" class="siswa-subview d-none">
+        <h4 class="fw-bold mb-3">Laporan Nilai Akademik</h4>
+        <div class="glass-card p-3 table-responsive">
+          <table class="table table-dark table-hover align-middle mb-0">
+            <thead><tr><th>Tugas / Mapel</th><th>Jawaban / Link</th><th>Status Penilaian</th><th>Nilai</th></tr></thead>
+            <tbody id="tbody-nilai-siswa"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <a href="#" class="bottom-nav-item active" onclick="switchSiswaSub('home', this)"><i class="fa-solid fa-house"></i>Home</a>
+      <a href="#" class="bottom-nav-item" onclick="switchSiswaSub('profil', this)"><i class="fa-solid fa-id-card"></i>Profil</a>
+      <a href="#" class="bottom-nav-item" onclick="switchSiswaSub('absen', this)"><i class="fa-solid fa-clipboard-user"></i>Absen</a>
+      <a href="#" class="bottom-nav-item" onclick="switchSiswaSub('tugas', this)"><i class="fa-solid fa-book"></i>Tugas</a>
+      <a href="#" class="bottom-nav-item" onclick="switchSiswaSub('nilai', this)"><i class="fa-solid fa-award"></i>Nilai</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    // ==============================================================================
+    // ENDPOINT GOOGLE APPS SCRIPT
+    // ==============================================================================
+    const GAS_API_URL = "https://script.google.com/macros/s/AKfycbwCNIQEDlD_BpqpL6c3TdqsszmsQkFJu5VjC5PhQLmyvWSR_ndoSbHyy2v9zPfdznUQ/exec";
+
+    let currentUser = null;
+    let currentRole = null;
+    let globalDashboardData = null;
+
+    const JURUSAN_MAP = {
+      'Reguler': ['TKJ', 'MP', 'AKL', 'DKV', 'TKR', 'TBSM'],
+      'Excellent (+)': ['TKJ', 'MP', 'DKV']
+    };
+
+    // Generic Fetch API Wrapper
+    async function callGasApi(action, payloadData = {}, method = 'POST') {
+      try {
+        let url = GAS_API_URL;
+        let config = {};
+
+        if (method === 'GET') {
+          const params = new URLSearchParams({ action, ...payloadData }).toString();
+          url += `?${params}`;
+          config = { method: 'GET' };
+        } else {
+          config = {
+            method: 'POST',
+            body: JSON.stringify({ action: action, data: payloadData })
+          };
+        }
+
+        const res = await fetch(url, config);
+        return await res.json();
+      } catch (err) {
+        return { success: false, message: "Koneksi API Gagal: " + err.message };
+      }
+    }
+
+    function switchView(viewId) {
+      document.querySelectorAll('.app-view').forEach(el => el.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function toggleAuthTab(role, mode) {
+      if (role === 'guru') {
+        document.getElementById('form-login-guru').classList.toggle('d-none', mode !== 'login');
+        document.getElementById('form-reg-guru').classList.toggle('d-none', mode !== 'register');
+      } else {
+        document.getElementById('form-login-siswa').classList.toggle('d-none', mode !== 'login');
+        document.getElementById('form-reg-siswa').classList.toggle('d-none', mode !== 'register');
+      }
+    }
+
+    function updateJurusanGrid() {
+      const jalur = document.getElementById('reg-siswa-jalur').value;
+      const container = document.getElementById('jurusan-radio-container');
+      container.innerHTML = '';
+      
+      JURUSAN_MAP[jalur].forEach((j, idx) => {
+        container.innerHTML += `
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="jurusanSiswa" id="jur-${j}" value="${j}" ${idx === 0 ? 'checked' : ''}>
+            <label class="form-check-label small" for="jur-${j}">${j}</label>
+          </div>
+        `;
+      });
+    }
+
+    window.onload = function() {
+      updateJurusanGrid();
+      document.getElementById('absen-tanggal').valueAsDate = new Date();
+    };
+
+    async function handleLoginGuru(e) {
+      e.preventDefault();
+      const id = document.getElementById('login-guru-id').value;
+      const pass = document.getElementById('login-guru-pass').value;
+
+      Swal.fire({ title: 'Memverifikasi...', didOpen: () => Swal.showLoading() });
+      const res = await callGasApi('loginGuru', { namaOrHp: id, password: pass });
+      Swal.close();
+
+      if (res.success) {
+        currentUser = res.user;
+        currentRole = 'guru';
+        document.getElementById('guru-profile-name').innerText = currentUser.nama_lengkap;
+        switchView('view-dashboard-guru');
+        loadDashboardGuru();
+      } else {
+        Swal.fire('Gagal', res.message, 'error');
+      }
+    }
+
+    async function handleRegGuru(e) {
+      e.preventDefault();
+      const mapelUmum = Array.from(document.querySelectorAll('input[name="mapelUmum"]:checked')).map(cb => cb.value);
+      const mapelKejuruan = Array.from(document.querySelectorAll('input[name="mapelKejuruan"]:checked')).map(cb => cb.value);
+
+      const data = {
+        nama: document.getElementById('reg-guru-nama').value,
+        gelar: document.getElementById('reg-guru-gelar').value,
+        wa: document.getElementById('reg-guru-wa').value,
+        mapelUmum: mapelUmum,
+        mapelKejuruan: mapelKejuruan,
+        password: document.getElementById('reg-guru-pass').value,
+        kodeRahasia: document.getElementById('reg-guru-kode').value
+      };
+
+      Swal.fire({ title: 'Mendaftarkan Akun...', didOpen: () => Swal.showLoading() });
+      const res = await callGasApi('registerGuru', data);
+      Swal.close();
+
+      if (res.success) {
+        Swal.fire('Berhasil', res.message, 'success');
+        toggleAuthTab('guru', 'login');
+      } else {
+        Swal.fire('Gagal', res.message, 'error');
+      }
+    }
+
+    async function handleLoginSiswa(e) {
+      e.preventDefault();
+      const nisn = document.getElementById('login-siswa-nisn').value;
+      const pass = document.getElementById('login-siswa-pass').value;
+
+      Swal.fire({ title: 'Memverifikasi...', didOpen: () => Swal.showLoading() });
+      const res = await callGasApi('loginSiswa', { nisn: nisn, password: pass });
+      Swal.close();
+
+      if (res.success) {
+        currentUser = res.user;
+        currentRole = 'siswa';
+        document.getElementById('siswa-profile-name').innerText = currentUser.nama;
+        switchView('view-dashboard-siswa');
+        loadDashboardSiswa();
+      } else {
+        Swal.fire('Gagal', res.message, 'error');
+      }
+    }
+
+    async function handleRegSiswa(e) {
+      e.preventDefault();
+      const jurusanSelected = document.querySelector('input[name="jurusanSiswa"]:checked').value;
+
+      const data = {
+        nama: document.getElementById('reg-siswa-nama').value,
+        nisn: document.getElementById('reg-siswa-nisn').value,
+        wa: document.getElementById('reg-siswa-wa').value,
+        tingkat: document.getElementById('reg-siswa-tingkat').value,
+        jalur: document.getElementById('reg-siswa-jalur').value,
+        jurusan: jurusanSelected,
+        rombel: document.getElementById('reg-siswa-rombel').value,
+        namaAyah: document.getElementById('reg-siswa-ayah').value,
+        namaIbu: document.getElementById('reg-siswa-ibu').value,
+        password: document.getElementById('reg-siswa-pass').value,
+        kodeRahasia: document.getElementById('reg-siswa-kode').value
+      };
+
+      Swal.fire({ title: 'Mendaftarkan Siswa...', didOpen: () => Swal.showLoading() });
+      const res = await callGasApi('registerSiswa', data);
+      Swal.close();
+
+      if (res.success) {
+        Swal.fire('Berhasil', res.message, 'success');
+        toggleAuthTab('siswa', 'login');
+      } else {
+        Swal.fire('Gagal', res.message, 'error');
+      }
+    }
+
+    function handleLupaPassword(role) {
+      const otpSimulasi = Math.floor(1000 + Math.random() * 9000);
+      Swal.fire({
+        title: 'Verifikasi Lupa Password',
+        text: `[SIMULASI OTP]: Kode verifikasi Anda adalah ${otpSimulasi}`,
+        input: 'text',
+        inputPlaceholder: 'Masukkan 4 digit OTP',
+        showCancelButton: true
+      }).then(async res => {
+        if (res.value == otpSimulasi) {
+          const passRes = await Swal.fire({
+            title: 'Password Baru',
+            input: 'password',
+            inputPlaceholder: 'Masukkan password baru'
+          });
+          if (passRes.value) {
+            const query = (role === 'guru') ? prompt('Masukkan WhatsApp / Nama Pengajar:') : prompt('Masukkan NISN Siswa:');
+            const result = (role === 'guru') ? 
+              await callGasApi('resetPasswordGuru', { query: query, newPassword: passRes.value }) :
+              await callGasApi('resetPasswordSiswa', { nisn: query, newPassword: passRes.value });
+            Swal.fire(result.success ? 'Berhasil' : 'Gagal', result.message, result.success ? 'success' : 'error');
+          }
+        }
+      });
+    }
+
+    function logout() {
+      currentUser = null;
+      currentRole = null;
+      switchView('view-landing');
+    }
+
+    function hapusAkunPermanen(role) {
+      Swal.fire({
+        title: 'Hapus Akun Permanen?',
+        text: 'Tindakan ini tidak dapat dibatalkan!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444'
+      }).then(async res => {
+        if (res.isConfirmed) {
+          const r = (role === 'guru') ? 
+            await callGasApi('hapusAkunGuru', { guruId: currentUser.id }) :
+            await callGasApi('hapusAkunSiswa', { nisn: currentUser.nisn });
+          logout();
+          Swal.fire('Terhapus', r.message, 'success');
+        }
+      });
+    }
+
+    function switchGuruSub(sub, el) {
+      document.querySelectorAll('#view-dashboard-guru .bottom-nav-item').forEach(e => e.classList.remove('active'));
+      el.classList.add('active');
+      document.querySelectorAll('.guru-subview').forEach(e => e.classList.add('d-none'));
+      document.getElementById(`guru-sub-${sub}`).classList.remove('d-none');
+    }
+
+    async function loadDashboardGuru() {
+      const res = await callGasApi('getRekapGuru', {}, 'GET');
+      if (res.success) {
+        globalDashboardData = res.data;
+        document.getElementById('stat-total-siswa').innerText = res.data.totalSiswa;
+        document.getElementById('stat-total-kelas').innerText = res.data.totalKelas;
+        document.getElementById('stat-total-tugas').innerText = res.data.totalTugas;
+        document.getElementById('stat-kehadiran-today').innerText = res.data.kehadiranHariIni;
+
+        document.getElementById('guru-detail-profil-container').innerHTML = `
+          <div class="col-md-6"><p class="mb-1 text-secondary">Nama Lengkap:</p><h6 class="fw-bold">${currentUser.nama_lengkap}</h6></div>
+          <div class="col-md-6"><p class="mb-1 text-secondary">No. WhatsApp:</p><h6 class="fw-bold">${currentUser.wa}</h6></div>
+          <div class="col-md-6"><p class="mb-1 text-secondary">Mapel Umum:</p><h6 class="fw-bold">${currentUser.mapel_umum || '-'}</h6></div>
+          <div class="col-md-6"><p class="mb-1 text-secondary">Mapel Kejuruan:</p><h6 class="fw-bold">${currentUser.mapel_kejuruan || '-'}</h6></div>
+        `;
+
+        renderTotalKelasGuru();
+        populateFilterKelasGuru();
+        renderTugasGuru();
+        renderNilaiGuru();
+      }
+    }
+
+    function renderTotalKelasGuru() {
+      const container = document.getElementById('container-daftar-kelas');
+      container.innerHTML = '';
+      const kelasGroup = {};
+      globalDashboardData.listSiswa.forEach(s => {
+        if (!kelasGroup[s.kelas_full]) kelasGroup[s.kelas_full] = [];
+        kelasGroup[s.kelas_full].push(s);
+      });
+
+      Object.keys(kelasGroup).forEach(k => {
+        container.innerHTML += `
+          <div class="col-md-4">
+            <div class="glass-card p-3">
+              <h5 class="fw-bold text-primary mb-1">${k}</h5>
+              <small class="text-secondary d-block mb-3">${kelasGroup[k].length} Siswa Terdaftar</small>
+              <button class="btn btn-sm btn-outline-light w-100" onclick="showDetailSiswaKelas('${k}')">Lihat Daftar Siswa</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function showDetailSiswaKelas(kelasFull) {
+      const list = globalDashboardData.listSiswa.filter(s => s.kelas_full === kelasFull);
+      let html = '<ul class="list-group list-group-flush bg-transparent">';
+      list.forEach(s => {
+        html += `<li class="list-group-item bg-transparent text-light border-secondary">
+          <strong>${s.nama}</strong> (NISN: ${s.nisn})<br>
+          <small class="text-muted">Ortu: ${s.nama_ayah} / ${s.nama_ibu} | WA: ${s.wa}</small>
+        </li>`;
+      });
+      html += '</ul>';
+      Swal.fire({ title: `Siswa Kelas ${kelasFull}`, html: html, width: '600px' });
+    }
+
+    function populateFilterKelasGuru() {
+      const select = document.getElementById('filter-absen-kelas');
+      select.innerHTML = '<option value="">-- Pilih Kelas Target --</option>';
+      const kelasSet = new Set(globalDashboardData.listSiswa.map(s => s.kelas_full));
+      kelasSet.forEach(k => { select.innerHTML += `<option value="${k}">${k}</option>`; });
+    }
+
+    function renderTabelAbsenGuru() {
+      const kelas = document.getElementById('filter-absen-kelas').value;
+      const tbody = document.getElementById('tbody-absensi-guru');
+      tbody.innerHTML = '';
+      if (!kelas) return;
+
+      const siswaKelas = globalDashboardData.listSiswa.filter(s => s.kelas_full === kelas);
+      siswaKelas.forEach(s => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${s.nisn}</td>
+            <td>${s.nama}</td>
+            <td>${s.kelas_full}</td>
+            <td>
+              <select class="form-select form-select-sm glass-input" onchange="updateAbsenByGuru('${s.nisn}', '${s.nama}', '${s.kelas_full}', this.value)">
+                <option value="Hadir">Hadir</option>
+                <option value="Izin">Izin</option>
+                <option value="Sakit">Sakit</option>
+                <option value="Alpha">Alpha</option>
+              </select>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    async function updateAbsenByGuru(nisn, nama, kelas, status) {
+      const tgl = document.getElementById('filter-absen-tanggal').value || new Date().toISOString().split('T')[0];
+      const data = { nisn: nisn, nama_siswa: nama, kelas_full: kelas, guru_id: currentUser.id, nama_guru: currentUser.nama_lengkap, mapel: currentUser.mapel_umum || currentUser.mapel_kejuruan, status: status, tanggal: tgl };
+      await callGasApi('simpanAbsensi', data);
+    }
+
+    function showModalBuatTugas() {
+      const kelasSet = Array.from(new Set(globalDashboardData.listSiswa.map(s => s.kelas_full)));
+      let options = kelasSet.map(k => `<option value="${k}">${k}</option>`).join('');
+
+      Swal.fire({
+        title: 'Buat Tugas Baru',
+        html: `
+          <select id="swal-target-kelas" class="form-select mb-2">${options}</select>
+          <input id="swal-judul-tugas" class="form-control mb-2" placeholder="Judul Tugas">
+          <textarea id="swal-deskripsi-tugas" class="form-control mb-2" placeholder="Deskripsi Tugas"></textarea>
+          <input id="swal-deadline-tugas" type="datetime-local" class="form-control">
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Terbitkan'
+      }).then(async res => {
+        if (res.isConfirmed) {
+          const data = {
+            guru_id: currentUser.id, nama_guru: currentUser.nama_lengkap,
+            target_kelas: document.getElementById('swal-target-kelas').value,
+            judul: document.getElementById('swal-judul-tugas').value,
+            deskripsi: document.getElementById('swal-deskripsi-tugas').value,
+            deadline: document.getElementById('swal-deadline-tugas').value
+          };
+          const r = await callGasApi('buatTugasGuru', data);
+          Swal.fire('Sukses', r.message, 'success');
+          loadDashboardGuru();
+        }
+      });
+    }
+
+    function renderTugasGuru() {
+      const tbody = document.getElementById('tbody-tugas-guru');
+      tbody.innerHTML = '';
+      globalDashboardData.listTugas.forEach(t => {
+        tbody.innerHTML += `
+          <tr>
+            <td><span class="badge bg-primary">${t.target_kelas}</span></td>
+            <td><strong>${t.judul}</strong><br><small class="text-muted">${t.deskripsi}</small></td>
+            <td>${t.deadline}</td>
+            <td><button class="btn btn-sm btn-info" onclick="Swal.fire('Status', 'Tugas Diterbitkan', 'info')">Lihat Pengumpulan</button></td>
+          </tr>
+        `;
+      });
+    }
+
+    function renderNilaiGuru() {
+      const tbody = document.getElementById('tbody-nilai-guru');
+      tbody.innerHTML = '';
+      globalDashboardData.listPengumpulan.forEach(p => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${p.nisn}</td>
+            <td>${p.nama_siswa}</td>
+            <td>${p.kelas_full}</td>
+            <td><a href="${p.jawaban_link}" target="_blank" class="btn btn-sm btn-link text-info">Buka Link</a></td>
+            <td><input type="number" class="form-control form-control-sm glass-input" style="width:80px;" value="${p.nilai}" id="nilai-input-${p.tugas_id}-${p.nisn}"></td>
+            <td><button class="btn btn-sm btn-success" onclick="simpanNilaiDirect('${p.tugas_id}', '${p.nisn}')">Simpan</button></td>
+          </tr>
+        `;
+      });
+    }
+
+    async function simpanNilaiDirect(tugasId, nisn) {
+      const val = document.getElementById(`nilai-input-${tugasId}-${nisn}`).value;
+      const r = await callGasApi('inputNilaiSiswa', { tugasId: tugasId, nisn: nisn, nilai: val });
+      Swal.fire('Tersimpan', r.message, 'success');
+    }
+
+    function switchSiswaSub(sub, el) {
+      document.querySelectorAll('#view-dashboard-siswa .bottom-nav-item').forEach(e => e.classList.remove('active'));
+      el.classList.add('active');
+      document.querySelectorAll('.siswa-subview').forEach(e => e.classList.add('d-none'));
+      document.getElementById(`siswa-sub-${sub}`).classList.remove('d-none');
+    }
+
+    async function loadDashboardSiswa() {
+      const res = await callGasApi('getRekapSiswa', { nisn: currentUser.nisn, kelas: currentUser.kelas_full }, 'GET');
+      if (res.success) {
+        document.getElementById('stat-siswa-presensi').innerText = res.data.presensiBulanIni;
+        document.getElementById('stat-siswa-tugas').innerText = res.data.tugasPending;
+        document.getElementById('stat-siswa-nilai').innerText = res.data.avgNilai;
+        document.getElementById('stat-siswa-guru').innerText = res.data.totalGuru;
+
+        document.getElementById('siswa-avatar-initial').innerText = currentUser.nama.charAt(0).toUpperCase();
+        document.getElementById('siswa-detail-nama').innerText = currentUser.nama;
+        document.getElementById('siswa-detail-nisn').innerText = `NISN: ${currentUser.nisn}`;
+        document.getElementById('siswa-detail-badge').innerText = `${currentUser.jalur} - ${currentUser.jurusan}`;
+
+        document.getElementById('siswa-detail-identitas').innerHTML = `
+          <div class="col-md-6"><small class="text-secondary d-block">Kelas & Rombel</small><strong>${currentUser.kelas_full}</strong></div>
+          <div class="col-md-6"><small class="text-secondary d-block">No. WhatsApp</small><strong>${currentUser.wa}</strong></div>
+          <div class="col-md-6"><small class="text-secondary d-block">Nama Ayah</small><strong>${currentUser.nama_ayah}</strong></div>
+          <div class="col-md-6"><small class="text-secondary d-block">Nama Ibu</small><strong>${currentUser.nama_ibu}</strong></div>
+        `;
+
+        const selectGuru = document.getElementById('absen-select-guru');
+        selectGuru.innerHTML = '';
+        res.data.listGuru.forEach(g => {
+          selectGuru.innerHTML += `<option value="${g.id}|${g.nama_lengkap}|${g.mapel_umum || g.mapel_kejuruan}">${g.nama_lengkap} (${g.mapel_umum || g.mapel_kejuruan})</option>`;
+        });
+
+        const tbodyAbsen = document.getElementById('tbody-riwayat-absen-siswa');
+        tbodyAbsen.innerHTML = '';
+        res.data.listAbsen.forEach(a => {
+          tbodyAbsen.innerHTML += `
+            <tr>
+              <td>${a.tanggal}</td>
+              <td>${a.mapel}</td>
+              <td>${a.nama_guru}</td>
+              <td><span class="badge bg-${a.status === 'Hadir' ? 'success' : 'warning'}">${a.status}</span></td>
+            </tr>
+          `;
+        });
+
+        const containerTugas = document.getElementById('container-tugas-siswa');
+        containerTugas.innerHTML = '';
+        res.data.listTugas.forEach(t => {
+          const pengumpulan = res.data.listPengumpulan.find(p => String(p.tugas_id) === String(t.id));
+          let statusBadge = '<span class="badge bg-danger">Belum Dikirim</span>';
+          if (pengumpulan) {
+            statusBadge = pengumpulan.status === 'Sudah Dinilai' ? `<span class="badge bg-success">Nilai: ${pengumpulan.nilai}</span>` : '<span class="badge bg-warning text-dark">Sudah Dikirim</span>';
+          }
+
+          containerTugas.innerHTML += `
+            <div class="col-md-6">
+              <div class="glass-card p-3">
+                <div class="d-flex justify-content-between mb-2"><small class="text-info">${t.nama_guru}</small>${statusBadge}</div>
+                <h5 class="fw-bold">${t.judul}</h5>
+                <p class="small text-secondary mb-2">${t.deskripsi}</p>
+                <small class="text-warning d-block mb-3"><i class="fa-solid fa-clock me-1"></i>Deadline: ${t.deadline}</small>
+                <button class="btn btn-sm btn-royal w-100" onclick="showModalKirimTugas('${t.id}')">Kirim Jawaban / Drive</button>
+              </div>
+            </div>
+          `;
+        });
+
+        const tbodyNilai = document.getElementById('tbody-nilai-siswa');
+        tbodyNilai.innerHTML = '';
+        res.data.listPengumpulan.forEach(p => {
+          tbodyNilai.innerHTML += `
+            <tr>
+              <td>${p.tugas_id}</td>
+              <td><a href="${p.jawaban_link}" target="_blank" class="text-info">Tautan Jawaban</a></td>
+              <td><span class="badge bg-info">${p.status}</span></td>
+              <td><strong class="fs-5 text-warning">${p.nilai}</strong></td>
+            </tr>
+          `;
+        });
+      }
+    }
+
+    async function handleKirimAbsenSiswa(e) {
+      e.preventDefault();
+      const guruVal = document.getElementById('absen-select-guru').value.split('|');
+      const statusVal = document.querySelector('input[name="statusAbsen"]:checked').value;
+      const tanggalVal = document.getElementById('absen-tanggal').value;
+
+      const data = {
+        nisn: currentUser.nisn, nama_siswa: currentUser.nama, kelas_full: currentUser.kelas_full,
+        guru_id: guruVal[0], nama_guru: guruVal[1], mapel: guruVal[2], status: statusVal, tanggal: tanggalVal
+      };
+
+      Swal.fire({ title: 'Mengirim Presensi...', didOpen: () => Swal.showLoading() });
+      const res = await callGasApi('simpanAbsensi', data);
+      Swal.close();
+
+      if (res.success) {
+        Swal.fire('Berhasil', res.message, 'success');
+        loadDashboardSiswa();
+      } else {
+        Swal.fire('Gagal', res.message, 'error');
+      }
+    }
+
+    function showModalKirimTugas(tugasId) {
+      Swal.fire({
+        title: 'Kirim Jawaban Tugas',
+        html: `
+          <input id="swal-jawaban-link" class="form-control mb-2" placeholder="Link Google Drive / Catatan Jawaban">
+          <textarea id="swal-catatan-siswa" class="form-control" placeholder="Catatan Tambahan untuk Guru"></textarea>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Kirimkan'
+      }).then(async res => {
+        if (res.isConfirmed) {
+          const data = {
+            tugas_id: tugasId, nisn: currentUser.nisn, nama_siswa: currentUser.nama, kelas_full: currentUser.kelas_full,
+            jawaban_link: document.getElementById('swal-jawaban-link').value, catatan: document.getElementById('swal-catatan-siswa').value
+          };
+          const r = await callGasApi('kirimJawabanTugas', data);
+          Swal.fire('Terikirim', r.message, 'success');
+          loadDashboardSiswa();
+        }
+      });
+    }
+  </script>
+</body>
+</html>
